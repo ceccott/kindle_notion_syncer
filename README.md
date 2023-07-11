@@ -14,6 +14,15 @@ Usage of the clippings file extension:
 ./kindle_notion_syncer.py --clip_file <path to My Clippings.txt>
 ```
 
+### Docker Extension
+The sync script can be run periodically (once per day) inside a docker container to pull updates from the Kindle online reader to Notion.
+A `env.list` file is expected by the `docker-compose.yml`, containing the variables specified in the Environment section.
+To spin the container
+```
+docker-compose build
+docker-compose up -d
+```
+
 ## Environment
 
 The following environmental variables should be set in the environment.

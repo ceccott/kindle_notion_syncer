@@ -1,0 +1,11 @@
+---
+version: '3'
+
+services:
+  kindle-sync:
+    container_name: kindle-sync
+    env_file: env.list
+    build: .
+    volumes:
+      - ./data:/data
+    restart: unless-stopped
