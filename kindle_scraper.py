@@ -4,6 +4,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.chrome.service import Service
+
 import time
 import requests
 import os
@@ -22,8 +24,8 @@ def get_highlights(email, password):
     # driver = webdriver.Chrome(executable_path=DRIVER_PATH, options=chrome_options)
 
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
-    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-
+    service = Service(os.environ.get("CHROMEDRIVER_PATH"))
+    driver = webdriver.Chrome(service=service, options=chrome_options)
 
     print("getting driver---------------")
     driver.get('https://read.amazon.com/kp/notebook')
@@ -70,13 +72,13 @@ def get_highlights(email, password):
 
         # wait for page to load
         elem = WebDriverWait(driver, 45).until(
-        EC.presence_of_element_located((By.XPATH, "//span[contains(@id, 'highlight')]")) 
+        EC.presence_of_element_located((By.XPATH, "//span[contains(@id, 'highlight')]"))
         )
 
         highlights = []
         highlight_text = []
         highlights = driver.find_elements(
-            By.XPATH, 
+            By.XPATH,
             "//span[@id='highlight' or @id='note']"
         )
 
